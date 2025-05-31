@@ -16,9 +16,9 @@ async def parse_resume(token: str = Depends(verify_token), file: UploadFile = Fi
     keywords = extract_keywords(text)
 
     return {
-        "user": token,  # token is decoded email from JWT
+        "user": token,  
         "keywords": keywords,
-        "summary": text[:300]  # return short preview
+        "summary": text[:300]  
     }
 
 if __name__ == "__main__":

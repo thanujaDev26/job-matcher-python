@@ -25,12 +25,12 @@ def verify_token(authorization: str = Header(...)):
 
         decoded = jwt.decode(
             token,
-            JWT_SECRET.encode('utf-8'),  
+            JWT_SECRET,  
             algorithms=["HS256"]
         )
         print("Decoded payload:", decoded)
         return decoded.get("email")
-
+    
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token expired")
 

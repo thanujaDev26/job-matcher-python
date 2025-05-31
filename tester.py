@@ -1,21 +1,20 @@
 import jwt
 import time
 
-# ✅ Same secret as used in your GoFiber app
+
 SECRET = "bb557692062675bf9dc8f4711ae2a57f55dcb28d1443d0f3ee377c36be15fbdc43a7f8f5f201f9772b0022304de9fd81ad3ad011b47fa2f905ccab1fd7ff1a18"
 
-# Payload (same style as GoFiber creates)
+
 payload = {
     "email": "thanujapriyadarshane0@gmail.com",
-    "exp": time.time() + 3600  # expires in 1 hour
+    "exp": time.time() + 3600 
 }
 
-# ✅ Encode the token
 token = jwt.encode(payload, SECRET, algorithm="HS256")
 
 print("\nGenerated JWT Token:\n", token)
 
-# ✅ Decode the token to verify it works
+
 try:
     decoded = jwt.decode(token, SECRET, algorithms=["HS256"])
     print("\n✅ Token is valid. Decoded payload:\n", decoded)
