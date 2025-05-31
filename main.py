@@ -2,6 +2,7 @@ from fastapi import FastAPI, UploadFile, File, Depends, HTTPException
 from parser.auth import verify_token
 from parser.extract import extract_text_from_pdf
 from parser.keywords import extract_keywords
+from parser.match import find_best_matches
 import uvicorn
 
 app = FastAPI()
@@ -14,11 +15,13 @@ async def parse_resume(token: str = Depends(verify_token), file: UploadFile = Fi
     content = await file.read()
     text = extract_text_from_pdf(content)
     keywords = extract_keywords(text)
+    matches = find_best_matches(text)
 
     return {
         "user": token,  
         "keywords": keywords,
-        "summary": text[:300]  
+        "summary": text[:],
+        "top_matches" : matches
     }
 
 if __name__ == "__main__":
